@@ -11,9 +11,7 @@ randomize.addEventListener("click", () => randomizar(playerList));
 function excluir(elemento, identificar) {
     //Seleciona o item que possui id = ao "data-id" da lixeira;
     let item = document.querySelector(`#${elemento}`);
-    console.log(item);
     item.remove();
-    console.log(identificar);
 
     if (identificar === "player") {
         //Filtra to dos os elementso de PlayerList e parra para PlayerList uma nova lista com todos os elementos que são diferente de lixoId;
@@ -30,6 +28,7 @@ function excluir(elemento, identificar) {
 //Adiciona o player quando apertar "Enter";
 let inputNickName = document.getElementById("inputName");
 inputNickName.addEventListener("keydown", function (tecla) {
+    console.log(tecla.key)
     if (tecla.key === "Enter") {
         adicionarPlayer();
     }
