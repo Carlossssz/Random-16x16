@@ -308,21 +308,26 @@ body {
     text-shadow: 2px 2px 2px black;
 }
 
+.grupo p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2px;
+}
+
 #randomList{
     width: 50%;
     height: 50px;
     align-self: center;
     margin-top: 10px;
     display: none;
-}
-
-
-.grupo p {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40%;
-
 }
 
 /*-----------------------TABELA MouseOver-----------------------------------------------*/
@@ -338,6 +343,8 @@ body {
     justify-content: center;
     align-items: center;
     box-shadow: 2px 2px 10px black;
+    min-width: 70px;
+    min-height: 40px;
 }
 .tabela p {
     font-size: 20px;

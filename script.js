@@ -47,7 +47,7 @@ function impedirCaracteres(input){
     
     campoDeTexto.addEventListener("input", function() { //Adiciona um evento para toda vez que o campo receber um valor
         let valor = campoDeTexto.value; //"valor" recebe o valor do input
-        let novoValor = valor.replace(/[^a-zA-ZÀ-ÿ\s]/g, ''); // Remove caracteres inválidos
+        let novoValor = valor.replace(/[^a-zA-ZÀ-ÿ0-9\s]/g, ''); // Remove caracteres inválidos
         if (valor !== novoValor) {
             campoDeTexto.value = novoValor; // Atualiza o campo com o valor corrigido
         }
@@ -101,7 +101,7 @@ function adicionarPlayer() {
     }
 }
 
-//Aleatoriza o array;
+//Aleatoriza o array e parra para a área de "EQUIPES";
 function randomizar(array) {
     for (let i = array.length - 1; i > 0; i--) {
         let numeroAleatorio = Math.floor(Math.random() * (i + 1));
@@ -114,13 +114,16 @@ function randomizar(array) {
     for (let i = 0; i < array.length; i += 2) {
         let novoGrupo = document.createElement("div");
         novoGrupo.classList.add("grupo");
+        let jogador1 = array[i].replace(/_/g, " ");
         if (array[i + 1]) {
+            let jogador2 = array[i + 1].replace(/_/g, " ");
             novoGrupo.innerHTML = `
-            <p>${array[i]}</p> / <p>${array[i + 1]}</p>
+            <p>${jogador1}</p> / <p>${jogador2}</p>
         `
         } else {
+            
             novoGrupo.innerHTML = `
-            <p>${array[i]}</p>
+            <p>${jogador1}</p>
         `
         }
 
@@ -220,7 +223,8 @@ function tabela(elementOver, chaveLocalStorage) {
 
         participantes.forEach(function (jogador) {
             let p = document.createElement("p");
-            p.innerText = `• ${jogador}`;
+            let nomeDoPlayer = jogador.replace(/_/g, " ");
+            p.innerText = `• ${nomeDoPlayer}`;
             div.appendChild(p);
         })
 
