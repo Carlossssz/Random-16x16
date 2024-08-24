@@ -24,15 +24,37 @@ function excluir(elemento, identificar) {
     }
 }
 
+//Salva o nickname ou a equipe oa apertar ENTER;
+function verificarEnter(name) {
+    let inputEquipeName = document.querySelector(`#${name}`);
+    inputEquipeName.addEventListener("keydown", function (tecla) {
+        if (name === "equipeName") {
+            if (tecla.key === "Enter") {
+                salvarNoStorage();
+            }
+        }else if(name === "inputName"){
+            if (tecla.key === "Enter") {
+                adicionarPlayer();
+            }
+        }
+    })
+}
+verificarEnter("equipeName");
+verificarEnter("inputName");
 
-//Adiciona o player quando apertar "Enter";
-let inputNickName = document.getElementById("inputName");
-inputNickName.addEventListener("keydown", function (tecla) {
-    console.log(tecla.key)
-    if (tecla.key === "Enter") {
-        adicionarPlayer();
-    }
-})
+function impedirCaracteres(input){
+    let campoDeTexto = document.querySelector(`#${input}`); //Seleciona o elemento com o id igual a input
+    
+    campoDeTexto.addEventListener("input", function() { //Adiciona um evento para toda vez que o campo receber um valor
+        let valor = campoDeTexto.value; //"valor" recebe o valor do input
+        let novoValor = valor.replace(/[^a-zA-ZÀ-ÿ\s]/g, ''); // Remove caracteres inválidos
+        if (valor !== novoValor) {
+            campoDeTexto.value = novoValor; // Atualiza o campo com o valor corrigido
+        }
+    });
+}
+impedirCaracteres("inputName");
+impedirCaracteres("equipeName");
 
 //Adiciona os jogadores que estão armazenados no Array, para a tela de equipe atual
 function playerListParaTela() {
@@ -75,10 +97,8 @@ function adicionarPlayer() {
         }
     } else {
         alertWindow("Insira um nickname!")
-        
+
     }
-
-
 }
 
 //Aleatoriza o array;
@@ -107,8 +127,6 @@ function randomizar(array) {
 
         aleatorios.appendChild(novoGrupo);
     }
-
-
 }
 
 ///////////////HISTORICO/////////////////////
@@ -143,14 +161,6 @@ function getElementsLocalStorage() {
 //Chama a função
 getElementsLocalStorage();
 
-//Salva a equipe no historico/localstorage ao apertar enter
-let inputEquipeName = document.querySelector("#equipeName");
-inputEquipeName.addEventListener("keydown", function (tecla) {
-    if (tecla.key === "Enter") {
-        salvarNoStorage();
-    }
-})
-
 ////////////SALVAR UMA EQUIPE NO LOCALSTORAGE/////////////
 function salvarNoStorage() {
     let equipeName = document.querySelector("#equipeName");
@@ -182,20 +192,17 @@ function capturarDoHistorico(equipe) {
     playerListParaTela();
 }
 
-
-
 //Cria uma janela flututante ao passar o mouse por cima da quantia de players no histórico
 function tabela(elementOver, chaveLocalStorage) {
     let participantes = JSON.parse(localStorage[chaveLocalStorage]);
     let altura = participantes.length;
-    
 
     //Retorna o tamanho da maior string dentro do Array;
-    function tamanhoDaTabela(lista){
+    function tamanhoDaTabela(lista) {
         maxLength = 0;
 
-        for(let i = 0; i < lista.length; i ++){
-            if(lista[i].length > maxLength){
+        for (let i = 0; i < lista.length; i++) {
+            if (lista[i].length > maxLength) {
                 maxLength = lista[i].length;
             }
         }
@@ -204,14 +211,14 @@ function tabela(elementOver, chaveLocalStorage) {
 
     if (altura > 0) {
         altura = altura * 30; //Definie a altura de cada linha ex: 3*40, 3 linhas de 40px
-        largura = tamanhoDaTabela(participantes)* 15; //Define o tamanho da largura da tabela
+        largura = tamanhoDaTabela(participantes) * 15; //Define o tamanho da largura da tabela
         let div = document.createElement("div");
         div.classList.add("tabela")
         div.style.width = `${largura}px`;
         div.style.height = `${altura}px`;
         document.body.appendChild(div);
 
-        participantes.forEach(function(jogador){
+        participantes.forEach(function (jogador) {
             let p = document.createElement("p");
             p.innerText = `• ${jogador}`;
             div.appendChild(p);
@@ -232,21 +239,20 @@ function tabela(elementOver, chaveLocalStorage) {
     }
 }
 
-function alertWindow(textoAlerta){
+function alertWindow(textoAlerta) {
     let janela = document.createElement("div");
     janela.classList.add("alertWindow");
     janela.textContent = textoAlerta;
     document.body.appendChild(janela);
     let listaDeJanelas = document.querySelectorAll(".alertWindow")
 
-    listaDeJanelas.forEach(function(remover){
+    listaDeJanelas.forEach(function (remover) {
         setTimeout(() => {
             remover.style.opacity = "0"
         }, 1800);
-    
+
         setTimeout(() => {
             remover.remove();
         }, 2200);
     })
-    
 }

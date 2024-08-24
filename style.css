@@ -381,10 +381,10 @@ body {
         height: 150vh;
     }
     .pages{
-        width: 90% !important;
+        width: 100% !important;
         max-width: none;
         height: 50%;
-        margin: 10px 0px 20px 0px;
+        margin: 0px 0px 20px 0px;
     }
     .aleatorios {
          width: 100% !important;
@@ -399,6 +399,13 @@ body {
 @media (max-height: 688px) and (max-width: 788px){
     body{
         height: 150vh;
+    }
+    
+}
+
+@media (max-height: 688px){
+    .botao{
+        font-size: 20px !important;
     }
 }
 
